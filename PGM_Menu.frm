@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501c-7"
+      Caption         =   "LS-33_Ver190501d"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -927,6 +927,8 @@ Attribute VB_Exposed = False
 '   　　Ver.33-190501c 2019.05.11 s.f  bug取り　表示位置バグ修正, katamax数により、型順表示枠を消す。MyEditの表示も消す
 '                                      iknの成形室位置判断　if文追加, 型順表示位置（プログラム内の位置）高速ループ内から　1回の成形の開始時へ移動
 '                                      coxデータのＨＤへの書き出し（毎回）
+'   　　Ver.33-190501d 2019.05.20 s.f  bug取り　表示位置バグ修正 型順書き換え場所を”XR"へ戻す。成形室に型があるときのみショット数カウントアップ（idcflg1=0）
+'                                       katahyjの書き換えcoxファイルread後へ場所変更
 '
 ' ******************************************************************************
 Option Explicit

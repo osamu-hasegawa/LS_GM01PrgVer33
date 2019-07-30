@@ -2913,15 +2913,6 @@ Dim dumlbl14$      ' 成形ショット数の画面表示用　ダミー190428 追加
 '-------------------------------------------------------------------------------------
 st:
   If ied = 2 Then GoTo st2:             '  この文　気になる！！　ied=2　は　無い！！　　editの時は、ied=1　　それ以外は、ied=0
-'  ---　2007.11.27　追加　kataNo表示  更新
-    For iii = 0 To katamax
-        kataNoHyj(iii) = kataNo(iii)
-        kataNoHyj(iii + katamax + 1) = kataNo(iii)
-        kataNoHyj(iii + (katamax + 1) * 2) = kataNo(iii)
-        kataNoHyj(iii + (katamax + 1) * 3) = kataNo(iii)
-    Next iii
-' --- label13(8) へ　katamax（ステーション数）を表示
-    Label13(8) = katamax
 '
 '/*  制御ファイルのオープン */
   coxDtRead gcoxFldir & gcoxFlName
@@ -2956,6 +2947,17 @@ st:
          Label7(0).BorderStyle = 0  '  枠なし
          Label7(1).BorderStyle = 0  '  枠なし
   End If
+'
+'  ---　2007.11.27　追加　kataNo表示  更新 2019.5.20 coxファイルread後へ移動
+    For iii = 0 To katamax
+        kataNoHyj(iii) = kataNo(iii)
+        kataNoHyj(iii + katamax + 1) = kataNo(iii)
+        kataNoHyj(iii + (katamax + 1) * 2) = kataNo(iii)
+        kataNoHyj(iii + (katamax + 1) * 3) = kataNo(iii)
+    Next iii
+' --- label13(8) へ　katamax（ステーション数）を表示
+    Label13(8) = katamax
+'
 ''/* 予備加熱温度設定 */
 '/* 軸駆動制御コマンドのファイルからの読み取り */
   i = 0
@@ -3172,36 +3174,6 @@ ejs1:
          Label7(1).BackColor = TKatBackCol(0)
     End If
 '
-'            --- 型　No.の表示　一回送り　---
-                kataNoPnt = kataNoPnt + 1
-                If kataNoPnt > katamax Then kataNoPnt = 0
-'
-                For iii = katamax To 0 Step -1
-                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
-                Next iii
-'
-                If (i_s_do) < katamax - 1 Then
-                    For iii = kataNoPnt + 1 To katamax
-                        Label13(iii).Caption = "空"
-                    Next iii
-                End If
-'   ---- katamaxにより、表示位置の入れ替え
-                If (katamax = 6) Or (katamax = 4) Then
-               '    --- 6st,4st のときは、0 以外　１個順送り　---
-                     For iii = katamax To 1 Step -1
-                        Label13(iii + 1).Caption = Label13(iii).Caption
-                     Next iii
-                     Label13(1).Caption = " "
-               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
-                    If katamax = 4 Then
-                        For iii = 5 To 4 Step -1
-                            Label13(iii + 2).Caption = Label13(iii).Caption
-                            Label13(iii).Caption = " "
-                        Next iii
-                    End If
-                End If
-'
-' ---           型Ｎｏ．　１回送り完了
 '
 '
 '/* カウンタへの出力ダウン */
@@ -3849,6 +3821,39 @@ caselend:     iflg = 1            'これを抜けると終了
                   DoEvents           '  注意　このDoEventsを　Do　直後に移すと　誤動作する。　搬送終了2回待ちになる！！
                 Loop
 '
+'
+'            --- 型　No.の表示　一回送り　---
+                kataNoPnt = kataNoPnt + 1
+                If kataNoPnt > katamax Then kataNoPnt = 0
+'
+                For iii = katamax To 0 Step -1
+                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
+                Next iii
+'
+                If (i_s_do) < katamax - 1 Then
+                    For iii = kataNoPnt + 1 To katamax
+                        Label13(iii).Caption = "空"
+                    Next iii
+                End If
+'   ---- katamaxにより、表示位置の入れ替え
+                If (katamax = 6) Or (katamax = 4) Then
+               '    --- 6st,4st のときは、0 以外　１個順送り　---
+                     For iii = katamax To 1 Step -1
+                        Label13(iii + 1).Caption = Label13(iii).Caption
+                     Next iii
+                     Label13(1).Caption = " "
+                End If
+               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
+                If katamax = 4 Then
+                        For iii = 5 To 4 Step -1
+                            Label13(iii + 2).Caption = Label13(iii).Caption
+                            Label13(iii).Caption = " "
+                        Next iii
+                End If
+'
+' ---           型Ｎｏ．　１回送り完了
+'
+
               Case "W"    '成形終了
               End Select
           Case "E"    '/* 終了　ロボット搬送 */
@@ -4039,37 +4044,6 @@ send:
 '
       Label4(T_keisuCont(1) - 1).Caption = Format(T_keisu(T_keisuCont(1) - 1), "0.000")
 '
-'            --- 型　No.の表示　一回送り　---
-                kataNoPnt = kataNoPnt + 1
-                If kataNoPnt > katamax Then kataNoPnt = 0
-'
-                For iii = katamax To 0 Step -1
-                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
-                Next iii
-'
-                If (i_s_do) < katamax - 1 Then
-                    For iii = kataNoPnt + 1 To katamax
-                        Label13(iii).Caption = "空"
-                    Next iii
-                End If
-'   ---- katamaxにより、表示位置の入れ替え
-                If (katamax = 6) Or (katamax = 4) Then
-               '    --- 6st,4st のときは、0 以外　１個順送り　---
-                     For iii = katamax To 1 Step -1
-                        Label13(iii + 1).Caption = Label13(iii).Caption
-                     Next iii
-                     Label13(1).Caption = " "
-               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
-                    If katamax = 4 Then
-                        For iii = 5 To 4 Step -1
-                            Label13(iii + 2).Caption = Label13(iii).Caption
-                            Label13(iii).Caption = " "
-                        Next iii
-                    End If
-                End If
-'
-' ---           型Ｎｏ．　１回送り完了
-
 '　 --- /*　現在成形中金型の 型No 確認　20190501 sf  ---
 '　　　　　　　　　'　st7:3は成形室label13(3) st6:2は成形室label13(2)
         If katamax = 7 Then ikn = katamax - 3 + kataNoPnt + katamax + 1 + Val(kataNo(10))
@@ -4080,7 +4054,7 @@ send:
         Next iii
          
  '--- /* 　カウントアップ　---/*
-        If (kataNo(ikn) <> "") Then ShotSu(ikn) = ShotSu(ikn) + 1
+        If (kataNo(ikn) <> "" And idcflg(1) = 0) Then ShotSu(ikn) = ShotSu(ikn) + 1
 '
  '--- /* 　shot数の画面グラフ内表示　---/*
         dumlbl14 = kataNo(0) & "=" & Format(ShotSu(0), "0") & "  " & kataNo(1) & "=" & Format(ShotSu(1), "0") & "  "

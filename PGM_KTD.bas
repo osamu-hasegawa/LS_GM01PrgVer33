@@ -130,7 +130,7 @@ Global kataNo$(0 To 10)               ' 型のナンバー　　　'2007.11.12　tsuika
 Global kataNoHyj$(0 To 36)            ' 型Ｎｏ．　表示用リングバッファ
 Global kataNoPnt As Integer           '型No.　ポインター
 '----- ステーション数の指定 ---------
-Global Const katamax As Integer = 7   '型数（成形機内のｽﾃｰｼｮﾝ数）7,6,4のいずれかのこと！
+Global Const katamax As Integer = 6   '型数（成形機内のｽﾃｰｼｮﾝ数）7,6,4のいずれかのこと！
 '------------------------------------
 Global seikeiKaisu As Integer         '成形回数　指定　　2010.4.16
 Global s_kaisu As Integer             ' s_kaisu=initdat(11)+seikeiKaisu
