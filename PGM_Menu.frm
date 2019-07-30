@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501a"
+      Caption         =   "LS-33_Ver190501b"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -923,6 +923,7 @@ Attribute VB_Exposed = False
 '                                             LS33-110804　共通化のため
 '   　　Ver.33-190501 2019.05.01 s.f  12R190428b と　33R-110804　の共通化　ST数　7,6,4　st
 '   　　Ver.33-190501a 2019.05.05 s.f  bug取り　datasaveボタン見えない→見える（visible=True）
+'   　　Ver.33-190501b 2019.05.05 s.f  bug取り　表示位置バグ修正
 '
 ' ******************************************************************************
 Option Explicit

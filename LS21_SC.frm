@@ -3826,15 +3826,17 @@ caselend:     iflg = 1            'これを抜けると終了
                         Label13(iii).Caption = "空"
                     Next iii
                 End If
-'
-                If katamax <> 7 Then
-               '    --- 6st,4st のときは、1 は　素通し　---
-                    Label13(2).Caption = Label13(1).Caption
-                    Label13(1).Caption = " "
-               '    --- 4st のときは、３，４　素通し　---
+'   ---- katamaxにより、表示位置の入れ替え
+                If (katamax = 6) Or (katamax = 4) Then
+               '    --- 6st,4st のときは、0 以外　１個順送り　---
+                     For iii = katamax To 1 Step -1
+                        Label13(iii + 1).Caption = Label13(iii).Caption
+                     Next iii
+                     Label13(1).Caption = " "
+               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
                     If katamax = 4 Then
-                        For iii = 3 To 4
-                            Label13(iii + 1).Caption = Label13(iii).Caption
+                        For iii = 5 To 4 Step -1
+                            Label13(iii + 2).Caption = Label13(iii).Caption
                             Label13(iii).Caption = " "
                         Next iii
                     End If
