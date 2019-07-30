@@ -25,6 +25,15 @@ Begin VB.Form MYEdit
    StartUpPosition =   3  'Windows の既定値
    Begin VB.TextBox Text17 
       Height          =   252
+      Index           =   7
+      Left            =   4440
+      TabIndex        =   261
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
       Index           =   6
       Left            =   3960
       TabIndex        =   259
@@ -89,7 +98,7 @@ Begin VB.Form MYEdit
    Begin VB.TextBox Text16 
       Enabled         =   0   'False
       Height          =   252
-      Left            =   4680
+      Left            =   5040
       TabIndex        =   252
       Text            =   "Text16"
       Top             =   4080
@@ -161,10 +170,10 @@ Begin VB.Form MYEdit
    Begin VB.TextBox Text14 
       Height          =   252
       Index           =   7
-      Left            =   5280
+      Left            =   4440
       TabIndex        =   243
       Text            =   "Text14"
-      Top             =   4080
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -4108,12 +4117,12 @@ Dim aHenkou$(3)
 Private Sub Command1_Click()
   If katCflag = True Then
           katCflag = False          '加圧時間自動制御　OFF
-          Command1().BackColor = CmndColoff(3)
-          Command1().Caption = "加圧時間制御 OFF"
+          command1().BackColor = CmndColoff(3)
+          command1().Caption = "加圧時間制御 OFF"
     Else
           katCflag = True      '加圧時間自動制御　ON
-          Command1().BackColor = CmndColon(1)    ' on1=red
-          Command1().Caption = "加圧時間制御 ON"
+          command1().BackColor = CmndColon(1)    ' on1=red
+          command1().Caption = "加圧時間制御 ON"
   End If
 '
 End Sub
@@ -4348,7 +4357,7 @@ Dim dt!
     Next i
    dt = kataNo(10): DispText14 1, dt, True   '変No. 調整数
 ' ---- kata Shot数 表示
-    For i = 0 To 6                  ' Text17 は、0～6　まで
+    For i = 0 To 7                  ' Text17 は、0～7　まで
         Text17(i).Text = ShotSu(i)
     Next i
 '
@@ -4437,7 +4446,7 @@ Dim dt!
         kataNo(i) = Text14(i).Text  '   型No.　の取り込み
     Next i
 '  --- kata Shot数 ---
-    For i = 0 To 6                  '　Text17は0～6まで
+    For i = 0 To 7                  '　Text17は0～7まで
         ShotSu(i) = Val(Text17(i).Text)  '   型 Shot数の取込み
     Next i
 '  ---------
@@ -4483,11 +4492,11 @@ DispCenter Me
     End If
   Next i
   If katCflag = False Then
-          Command1().BackColor = CmndColoff(3)
-          Command1().Caption = "加圧時間制御 OFF"
+          command1().BackColor = CmndColoff(3)
+          command1().Caption = "加圧時間制御 OFF"
     Else
-          Command1().BackColor = CmndColon(1)    ' on1=red
-          Command1().Caption = "加圧時間制御 ON"
+          command1().BackColor = CmndColon(1)    ' on1=red
+          command1().Caption = "加圧時間制御 ON"
     End If
 End Sub
 

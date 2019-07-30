@@ -71,12 +71,20 @@ Begin VB.Form LS21_SC
          Alignment       =   2  '中央揃え
          BorderStyle     =   1  '実線
          Caption         =   "Label13"
-         Height          =   240
+         BeginProperty Font 
+            Name            =   "ＭＳ Ｐゴシック"
+            Size            =   12
+            Charset         =   128
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
          Index           =   8
-         Left            =   1080
+         Left            =   600
          TabIndex        =   119
-         Top             =   1320
-         Visible         =   0   'False
+         Top             =   550
          Width           =   396
       End
       Begin VB.Label Label13 
@@ -86,7 +94,7 @@ Begin VB.Form LS21_SC
          Caption         =   "Label13"
          Height          =   240
          Index           =   7
-         Left            =   120
+         Left            =   600
          TabIndex        =   118
          Top             =   1320
          Visible         =   0   'False
@@ -98,9 +106,9 @@ Begin VB.Form LS21_SC
          Caption         =   "Label13"
          Height          =   240
          Index           =   6
-         Left            =   600
+         Left            =   120
          TabIndex        =   117
-         Top             =   1320
+         Top             =   1030
          Width           =   396
       End
       Begin VB.Label Label13 
@@ -112,7 +120,7 @@ Begin VB.Form LS21_SC
          Index           =   5
          Left            =   120
          TabIndex        =   116
-         Top             =   1030
+         Top             =   720
          Width           =   396
       End
       Begin VB.Label Label13 
@@ -124,18 +132,6 @@ Begin VB.Form LS21_SC
          Index           =   4
          Left            =   120
          TabIndex        =   115
-         Top             =   720
-         Width           =   396
-      End
-      Begin VB.Label Label13 
-         Alignment       =   2  '中央揃え
-         BackColor       =   &H00FFFFFF&
-         BorderStyle     =   1  '実線
-         Caption         =   "Label13"
-         Height          =   240
-         Index           =   3
-         Left            =   120
-         TabIndex        =   114
          Top             =   400
          Width           =   396
       End
@@ -145,8 +141,20 @@ Begin VB.Form LS21_SC
          BorderStyle     =   1  '実線
          Caption         =   "Label13"
          Height          =   240
-         Index           =   2
+         Index           =   3
          Left            =   600
+         TabIndex        =   114
+         Top             =   150
+         Width           =   396
+      End
+      Begin VB.Label Label13 
+         Alignment       =   2  '中央揃え
+         BackColor       =   &H00C0C0FF&
+         BorderStyle     =   1  '実線
+         Caption         =   "Label13"
+         Height          =   240
+         Index           =   2
+         Left            =   1080
          TabIndex        =   113
          Top             =   150
          Width           =   396
@@ -160,7 +168,7 @@ Begin VB.Form LS21_SC
          Index           =   1
          Left            =   1080
          TabIndex        =   112
-         Top             =   150
+         Top             =   400
          Width           =   396
       End
       Begin VB.Label Label13 
@@ -2911,6 +2919,8 @@ st:
         kataNoHyj(iii + (katamax + 1) * 2) = kataNo(iii)
         kataNoHyj(iii + (katamax + 1) * 3) = kataNo(iii)
     Next iii
+' --- label13(8) へ　katamax（ステーション数）を表示
+    Label13(8) = katamax
 '
 '/*  制御ファイルのオープン */
   coxDtRead gcoxFldir & gcoxFlName
@@ -3819,12 +3829,18 @@ caselend:     iflg = 1            'これを抜けると終了
                         Label13(iii).Caption = "空"
                     Next iii
                 End If
-'            --- 4st のときは、３，４　素通し　---
-                If katamax = 4 Then
-                    For iii = 3 To 4
-                       Label13(iii + 1).Caption = Label13(iii).Caption
-                       Label13(iii).Caption = " "
-                    Next iii
+'
+                If katamax <> 7 Then
+               '    --- 6st,4st のときは、1 は　素通し　---
+                    Label13(2).Caption = Label13(1).Caption
+                    Label13(1).Caption = " "
+               '    --- 4st のときは、３，４　素通し　---
+                    If katamax = 4 Then
+                        For iii = 3 To 4
+                            Label13(iii + 1).Caption = Label13(iii).Caption
+                            Label13(iii).Caption = " "
+                        Next iii
+                    End If
                 End If
 '
 ' ---           型Ｎｏ．　１回送り完了
@@ -4018,9 +4034,9 @@ send:
 '
       Label4(T_keisuCont(1) - 1).Caption = Format(T_keisu(T_keisuCont(1) - 1), "0.000")
 '
-'　 --- /*　現在成形中金型の 型No 確認　20190428 sf  ---
-'　　　　　　　　　'　2は成形室　　label13(2)
-        ikn = katamax - 2 + kataNoPnt + katamax + 1 + Val(kataNo(10))
+'　 --- /*　現在成形中金型の 型No 確認　20190501 sf  ---
+'　　　　　　　　　'　3は成形室　　label13(3)
+        ikn = katamax - 3 + kataNoPnt + katamax + 1 + Val(kataNo(10))
 '
         For iii = 1 To 4
             If ikn > katamax Then ikn = ikn - (katamax + 1)
@@ -4033,7 +4049,7 @@ send:
         dumlbl14 = kataNo(0) & "=" & Format(ShotSu(0), "0") & "  " & kataNo(1) & "=" & Format(ShotSu(1), "0") & "  "
         dumlbl14 = dumlbl14 & kataNo(2) & "=" & Format(ShotSu(2), "0") & "  " & kataNo(3) & "=" & Format(ShotSu(3), "0") & "  "
         dumlbl14 = dumlbl14 & kataNo(4) & "=" & Format(ShotSu(4), "0") & "  " & kataNo(5) & "=" & Format(ShotSu(5), "0") & "  "
-        dumlbl14 = dumlbl14 & kataNo(6) & "=" & Format(ShotSu(6), "0")
+        dumlbl14 = dumlbl14 & kataNo(6) & "=" & Format(ShotSu(6), "0") & "  " & kataNo(7) & "=" & Format(ShotSu(7), "0")
         Label14.Caption = dumlbl14
 '
 '　 --- /*　成形データの表示（リスト表示）　*/  csv 2019.4.28 sf  ---

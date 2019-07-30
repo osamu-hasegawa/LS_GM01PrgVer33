@@ -129,7 +129,9 @@ Global gemgmsg                        'エラーメセージ
 Global kataNo$(0 To 10)               ' 型のナンバー　　　'2007.11.12　tsuika
 Global kataNoHyj$(0 To 36)            ' 型Ｎｏ．　表示用リングバッファ
 Global kataNoPnt As Integer           '型No.　ポインター
-Global katamax As Integer             '型数　（成形機内のｽﾃｰｼｮﾝ数）
+'----- ステーション数の指定 ---------
+Global Const katamax As Integer = 6   '型数（成形機内のｽﾃｰｼｮﾝ数）7,6,4のいずれかのこと！
+'------------------------------------
 Global seikeiKaisu As Integer         '成形回数　指定　　2010.4.16
 Global s_kaisu As Integer             ' s_kaisu=initdat(11)+seikeiKaisu
 Global ShotSu%(0 To 10)               ' 型shot数　　20190428追加
@@ -172,9 +174,7 @@ Dim i%
   Karauchiflg = False      ' プログラム開始時は、一旦false
   Saikaiflg = False         'プログラム開始時は、一旦false
   KeikaTime(0) = 0     ' 経過時間(0)の初期化
-'----- ステーション数の指定 ------
-  katamax = 6    '  成形機内のｽﾃｰｼｮﾝ数　４又は６　のこと！ 2019.4.28
-'---------------------------------
+' ---------------------------------------------------------------
 '
     For i = 0 To 9
         kataNo(i) = Format(i + 1, "##")     ' 型Ｎｏ．の初期化
@@ -442,7 +442,7 @@ Dim fDir$, flNm$
   sdt = sdt & ",    cc1,  cc2,  cc3"
   sdt = sdt & ",  cc3-2,   cp,    ﾀｸﾄ,  T係数,  Z3補正"
   Open fDir & FlNmRecDt For Output As #fnum
-     Write #fnum, gcoxFlName & "   " & Date$ & "   " & Time$
+     Write #fnum, gcoxFlName & ",   " & Date$ & ",   " & Time$
      Write #fnum, sdt
   Close #fnum
 End Sub
@@ -660,7 +660,7 @@ End Sub
 
 Private Sub DebugData()
 Dim i%
-Dim z!, p!, t!, x!
+Dim z!, p!, t!, X!
 '
   For i = 0 To ResDtSize
     TPass(i) = i                '経過時間(秒)
