@@ -4482,6 +4482,8 @@ If katamax = 4 Then Text17(6).Visible = False
 If katamax = 4 Then Text17(5).Visible = False
 '
 DispCenter Me
+MYEdit.Caption = MYEdit.Caption + "     " + versionNo
+'
   lFlgDisp = False
   coxDtRead gcoxFldir & gcoxFlName
   If T_keisuCont(2) <> 0 Then T_keisuCont(1) = T_keisuCont(2)    'ポインターのbackup

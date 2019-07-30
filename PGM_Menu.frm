@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501e"
+      Caption         =   "LS-33_Ver190501f"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -922,6 +922,8 @@ Attribute VB_Exposed = False
 '   　　Ver.3.33-12R-190428b 2019.05.01 s.f  MyEditのGraph　Picture1内のLine1の配列数を　21から30へ変更　Line1(0 to 30）
 '                                             LS33-110804　共通化のため
 '   　　Ver.33-190501 2019.05.01 s.f  12R190428b と　33R-110804　の共通化　ST数　7,6,4　st
+'                                      ステーション数の指定：　PGM_KTD.basの冒頭　GlobalConst　katamaxの指定部で行う。
+'　　　　　　　　　　　　　　　　　　　Global Const katamax As Integer = 6   '型数（成形機内のｽﾃｰｼｮﾝ数）7,6,4のいずれかのこと！
 '   　　Ver.33-190501a 2019.05.05 s.f  bug取り　datasaveボタン見えない→見える（visible=True）
 '   　　Ver.33-190501b 2019.05.07 s.f  bug取り　表示位置バグ修正
 '   　　Ver.33-190501c 2019.05.11 s.f  bug取り　表示位置バグ修正, katamax数により、型順表示枠を消す。MyEditの表示も消す
@@ -931,7 +933,7 @@ Attribute VB_Exposed = False
 '                                       katahyjの書き換えcoxファイルread後へ場所変更
 '   　　Ver.33-190501e 2019.05.25 s.f  成形データ表示の文字間へスペース２個へ ", " → ",  "
 '                                      待ち時間入力制限　1000”→2400”　へ
-'
+'   　　Ver.33-190501f 2019.06.07 s.f  LS31/32の",,  ”の修正に伴いVerNoを「ｆ」の合わせる。MYEdit.captionへVerNo
 ' ******************************************************************************
 Option Explicit
 '
@@ -1052,10 +1054,10 @@ Private Sub Form_Load()
   T_keisuCont(2) = 0                ' T係数　ﾎﾟｲﾝﾀｰのbackupｸﾘﾔ
   T_keisuCont(3) = 0                ' 型個数のbackupのｸﾘﾔ
    Timer1.Enabled = True
-  Command1(0).Enabled = False       '2002.10.17 KYOCERA
-  Command1(1).Enabled = False
-  Command1(2).Enabled = False
-  Command1(4).Enabled = False
+  command1(0).Enabled = False       '2002.10.17 KYOCERA
+  command1(1).Enabled = False
+  command1(2).Enabled = False
+  command1(4).Enabled = False
 End Sub
 '-------------------------------------------------------------
 'Private Sub ExecMemo(DDir$, flNm$)      ' 2006.5.19 PGM_KTD へ移動
@@ -1416,17 +1418,17 @@ Private Sub Timer2_Timer()
     If r_z > 0.1 Then
       OrgOFF
       Label2(5).Caption = ""
-      Command1(0).Enabled = False
-      Command1(1).Enabled = False
-      Command1(2).Enabled = False
-      Command1(4).Enabled = False
+      command1(0).Enabled = False
+      command1(1).Enabled = False
+      command1(2).Enabled = False
+      command1(4).Enabled = False
     Else
       OrgON
       Label2(5).Caption = "原点"
-      Command1(0).Enabled = True
-      Command1(1).Enabled = True
-      Command1(2).Enabled = True
-      Command1(4).Enabled = True
+      command1(0).Enabled = True
+      command1(1).Enabled = True
+      command1(2).Enabled = True
+      command1(4).Enabled = True
     End If
   End If
       
