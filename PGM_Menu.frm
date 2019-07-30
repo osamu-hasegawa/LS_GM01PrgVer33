@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501c"
+      Caption         =   "LS-33_Ver190501c-7"
       BeginProperty Font 
          Name            =   "‚l‚r ‚oƒSƒVƒbƒN"
          Size            =   12
