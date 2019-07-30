@@ -97,7 +97,6 @@ Begin VB.Form LS21_SC
          Left            =   600
          TabIndex        =   118
          Top             =   1320
-         Visible         =   0   'False
          Width           =   396
       End
       Begin VB.Label Label13 
@@ -226,7 +225,6 @@ Begin VB.Form LS21_SC
    End
    Begin VB.CommandButton Command2 
       Caption         =   "GraphDataSave"
-      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "‚l‚r ‚oƒSƒVƒbƒN"
          Size            =   7.8
@@ -241,7 +239,6 @@ Begin VB.Form LS21_SC
       Left            =   120
       TabIndex        =   57
       Top             =   480
-      Visible         =   0   'False
       Width           =   1440
    End
    Begin VB.ListBox List1 

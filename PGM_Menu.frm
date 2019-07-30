@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501"
+      Caption         =   "LS-33_Ver190501a"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -921,7 +921,8 @@ Attribute VB_Exposed = False
 '       Ver.3.33-12R-190428a 2019.04.28 s.f  6ST/4ST共用化  katamax=4or6 をPGM_KTD.basで必ず指定すること！
 '   　　Ver.3.33-12R-190428b 2019.05.01 s.f  MyEditのGraph　Picture1内のLine1の配列数を　21から30へ変更　Line1(0 to 30）
 '                                             LS33-110804　共通化のため
-'   　　Ver.3.33-190501 2019.05.01 s.f  12R190428b と　33R-110804　の共通化　ST数　7,6,4　st
+'   　　Ver.33-190501 2019.05.01 s.f  12R190428b と　33R-110804　の共通化　ST数　7,6,4　st
+'   　　Ver.33-190501a 2019.05.05 s.f  bug取り　datasaveボタン見えない→見える（visible=True）
 '
 ' ******************************************************************************
 Option Explicit
