@@ -23,6 +23,79 @@ Begin VB.Form MYEdit
    ScaleHeight     =   7404
    ScaleWidth      =   10452
    StartUpPosition =   3  'Windows の既定値
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   6
+      Left            =   3960
+      TabIndex        =   259
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   5
+      Left            =   3480
+      TabIndex        =   258
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   4
+      Left            =   2900
+      TabIndex        =   257
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   3
+      Left            =   2450
+      TabIndex        =   256
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   2
+      Left            =   1970
+      TabIndex        =   255
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   1
+      Left            =   1500
+      TabIndex        =   254
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text17 
+      Height          =   252
+      Index           =   0
+      Left            =   1050
+      TabIndex        =   253
+      Text            =   "Text17"
+      Top             =   4040
+      Width           =   372
+   End
+   Begin VB.TextBox Text16 
+      Enabled         =   0   'False
+      Height          =   252
+      Left            =   4680
+      TabIndex        =   252
+      Text            =   "Text16"
+      Top             =   4080
+      Visible         =   0   'False
+      Width           =   372
+   End
    Begin VB.VScrollBar VScroll15 
       Height          =   252
       Left            =   7200
@@ -69,7 +142,7 @@ Begin VB.Form MYEdit
       Enabled         =   0   'False
       Height          =   252
       Index           =   9
-      Left            =   5040
+      Left            =   6120
       TabIndex        =   245
       Text            =   "Text14"
       Top             =   4080
@@ -79,19 +152,19 @@ Begin VB.Form MYEdit
    Begin VB.TextBox Text14 
       Height          =   252
       Index           =   8
-      Left            =   4840
+      Left            =   5760
       TabIndex        =   244
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   4080
       Width           =   372
    End
    Begin VB.TextBox Text14 
       Height          =   252
       Index           =   7
-      Left            =   4400
+      Left            =   5280
       TabIndex        =   243
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   4080
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -100,7 +173,7 @@ Begin VB.Form MYEdit
       Left            =   3960
       TabIndex        =   242
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -109,7 +182,7 @@ Begin VB.Form MYEdit
       Left            =   3480
       TabIndex        =   241
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -118,7 +191,7 @@ Begin VB.Form MYEdit
       Left            =   2900
       TabIndex        =   240
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -127,7 +200,7 @@ Begin VB.Form MYEdit
       Left            =   2450
       TabIndex        =   239
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -136,7 +209,7 @@ Begin VB.Form MYEdit
       Left            =   1970
       TabIndex        =   238
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -145,7 +218,7 @@ Begin VB.Form MYEdit
       Left            =   1500
       TabIndex        =   237
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text14 
@@ -154,7 +227,7 @@ Begin VB.Form MYEdit
       Left            =   1050
       TabIndex        =   236
       Text            =   "Text14"
-      Top             =   3840
+      Top             =   3800
       Width           =   372
    End
    Begin VB.TextBox Text9 
@@ -1140,6 +1213,78 @@ Begin VB.Form MYEdit
       TabIndex        =   139
       Top             =   1440
       Width           =   5640
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   30
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   29
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   28
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   27
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   26
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   25
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   24
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   23
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
+      Begin VB.Line Line1 
+         BorderStyle     =   3  '点線
+         Index           =   22
+         X1              =   0
+         X2              =   0
+         Y1              =   0
+         Y2              =   3996
+      End
       Begin VB.Line Line1 
          BorderStyle     =   3  '点線
          Index           =   21
@@ -2585,6 +2730,17 @@ Begin VB.Form MYEdit
       Top             =   252
       Width           =   1236
    End
+   Begin VB.Label Label9 
+      Alignment       =   2  '中央揃え
+      BackStyle       =   0  '透明
+      Caption         =   "ｼｮｯﾄ数"
+      Height          =   200
+      Index           =   1
+      Left            =   500
+      TabIndex        =   260
+      Top             =   4080
+      Width           =   500
+   End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
       BackStyle       =   0  '透明
@@ -2608,12 +2764,14 @@ Begin VB.Form MYEdit
    End
    Begin VB.Label Label9 
       Alignment       =   2  '中央揃え
+      BackStyle       =   0  '透明
       Caption         =   "型No."
-      Height          =   255
-      Left            =   360
+      Height          =   200
+      Index           =   0
+      Left            =   500
       TabIndex        =   246
-      Top             =   3840
-      Width           =   615
+      Top             =   3860
+      Width           =   500
    End
    Begin VB.Label Label5 
       Alignment       =   2  '中央揃え
@@ -3938,6 +4096,7 @@ Attribute VB_Exposed = False
 '   update: 12R_091226R 2009. 9.21 s.f  エディタでNptepad使用のバグ修正
 '   update: 12R_100416R 2010.4.16 s.f  成形回数指定「連続成形」追加　text15＝回数、通常は０回（＝無限回）
 '   update: 12R-120513  2012.5.13 s.f  z3肉厚補正　入力制限変更　元:　+/-0.05　　新：　+0.05/-0.50
+'   update: 12R-190428b 2019.5.01 s.f  MyEditのGraph　Picture1内のLine1の配列数を　21から30へ変更　Line1(0 to 30）
 '
 Option Explicit
 Dim lK1%, lK2%, lK3%, lK4%, lK5%, lK6%, lK7%, lK8%
@@ -3949,12 +4108,12 @@ Dim aHenkou$(3)
 Private Sub Command1_Click()
   If katCflag = True Then
           katCflag = False          '加圧時間自動制御　OFF
-          command1().BackColor = CmndColoff(3)
-          command1().Caption = "加圧時間制御 OFF"
+          Command1().BackColor = CmndColoff(3)
+          Command1().Caption = "加圧時間制御 OFF"
     Else
           katCflag = True      '加圧時間自動制御　ON
-          command1().BackColor = CmndColon(1)    ' on1=red
-          command1().Caption = "加圧時間制御 ON"
+          Command1().BackColor = CmndColon(1)    ' on1=red
+          Command1().Caption = "加圧時間制御 ON"
   End If
 '
 End Sub
@@ -4188,6 +4347,11 @@ Dim dt!
         Text14(i).Text = kataNo(i)
     Next i
    dt = kataNo(10): DispText14 1, dt, True   '変No. 調整数
+' ---- kata Shot数 表示
+    For i = 0 To 6                  ' Text17 は、0～6　まで
+        Text17(i).Text = ShotSu(i)
+    Next i
+'
 ' ---- 成形回数指定
    dt = seikeiKaisu: DispText15 1, dt, True   '成形回数指定
   '------------------ グラフ
@@ -4272,10 +4436,13 @@ Dim dt!
     For i = 0 To 10
         kataNo(i) = Text14(i).Text  '   型No.　の取り込み
     Next i
+'  --- kata Shot数 ---
+    For i = 0 To 6                  '　Text17は0～6まで
+        ShotSu(i) = Val(Text17(i).Text)  '   型 Shot数の取込み
+    Next i
 '  ---------
         seikeiKaisu = Val(Text15.Text)  '   成形回数　指定
         s_kaisu = seikeiKaisu  ' 成形回数指定ｶｳﾝﾀ
-'
 End Sub
 
 Private Sub Command3_Click(Index As Integer)
@@ -4316,11 +4483,11 @@ DispCenter Me
     End If
   Next i
   If katCflag = False Then
-          command1().BackColor = CmndColoff(3)
-          command1().Caption = "加圧時間制御 OFF"
+          Command1().BackColor = CmndColoff(3)
+          Command1().Caption = "加圧時間制御 OFF"
     Else
-          command1().BackColor = CmndColon(1)    ' on1=red
-          command1().Caption = "加圧時間制御 ON"
+          Command1().BackColor = CmndColon(1)    ' on1=red
+          Command1().Caption = "加圧時間制御 ON"
     End If
 End Sub
 

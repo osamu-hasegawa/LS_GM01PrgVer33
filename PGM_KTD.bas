@@ -32,11 +32,12 @@ Option Explicit
 Global InitDat!(0 To 50)               '保存データ
 Global InitStr$(0 To 50)
 '
-Global TPass!(0 To 2000)                '経過時間(秒)
-Global ZAxis!(0 To 2000)                '座標（Z-軸）
-Global Press!(0 To 2000)                '型締圧
-Global Templ!(0 To 2000)                '型温度
-Global Templd!(0 To 2000)               '型温度 下
+Global TPass!(0 To 3601)                '経過時間(秒)
+Global ZAxis!(0 To 3601)                '座標（Z-軸）
+Global Press!(0 To 3601)                '型締圧
+Global Templ!(0 To 3601)                '型温度
+Global Templd!(0 To 3601)               '型温度 下
+Global Const ResDtSize = 3601
 Global BrdFlg$
 Global StartTime!                       'Debug用
 Global GCnt0%                           '成形中データカウンタ
@@ -124,17 +125,20 @@ Global Rec_of_Mold$                   '成形データ　文字変数
 '
 Global gErrMsg$(0 To 1, 0 To 20)      'エラーメセージ
 Global gemgmsg                        'エラーメセージ
-'
-Global kataNo$(0 To 10)                 ' 型のナンバー　　　'2007.11.12　tsuika
-Global kataNoHyj$(0 To 36)                    ' 型Ｎｏ．　表示用リングバッファ
-Global kataNoPnt As Integer                     '　型No.　ポインター
-Global katamax As Integer                     '　型数　（成形機内のｽﾃｰｼｮﾝ数）
-Global seikeiKaisu As Integer             '　成形回数　指定　　2010.4.16
-Global s_kaisu As Integer                 '  s_kaisu=initdat(11)+seikeiKaisu
+
+Global kataNo$(0 To 10)               ' 型のナンバー　　　'2007.11.12　tsuika
+Global kataNoHyj$(0 To 36)            ' 型Ｎｏ．　表示用リングバッファ
+Global kataNoPnt As Integer           '型No.　ポインター
+Global katamax As Integer             '型数　（成形機内のｽﾃｰｼｮﾝ数）
+Global seikeiKaisu As Integer         '成形回数　指定　　2010.4.16
+Global s_kaisu As Integer             ' s_kaisu=initdat(11)+seikeiKaisu
+Global ShotSu%(0 To 10)               ' 型shot数　　20190428追加
+Global ikn%                           ' 成形中の型Noの配列変数No　　kataNo(ikn)
 '--------------- [QD61]LS21_S.C で定義してある変数
-Global atemp!(0 To 1801, 0 To 2)
-Global aposi!(0 To 1801)
-Global apre!(0 To 1801)
+Global KeikaTime%(0 To 3601)
+Global atemp!(0 To 3601, 0 To 2)
+Global aposi!(0 To 3601)
+Global apre!(0 To 3601)
 Global roz!(2)               '　突当成形ﾊﾟﾗﾒｰﾀ　幅,時間
 Global ivd%, id_0%, id_1%, id_2%
 '--------------- 手動の位置制御速度設定用
@@ -167,8 +171,10 @@ Dim i%
   katCflag = False      ' プログラム開始時は、必ず加圧制御OFF
   Karauchiflg = False      ' プログラム開始時は、一旦false
   Saikaiflg = False         'プログラム開始時は、一旦false
-'
-  katamax = 6           '  成形機内の型の数　　ｽﾃｰｼｮﾝ数
+  KeikaTime(0) = 0     ' 経過時間(0)の初期化
+'----- ステーション数の指定 ------
+  katamax = 6    '  成形機内のｽﾃｰｼｮﾝ数　４又は６　のこと！ 2019.4.28
+'---------------------------------
 '
     For i = 0 To 9
         kataNo(i) = Format(i + 1, "##")     ' 型Ｎｏ．の初期化
@@ -382,7 +388,15 @@ Dim ksub As Long
         dt = dt + "  " & kataNo(i)
     Next i
     gCoxDlDt(l) = dt
-'
+'　　　　　　　　　　　　　　　　　　　'　型Shot数　読込み
+    Input #fnum, ShotSu(0), ShotSu(1), ShotSu(2), ShotSu(3), ShotSu(4), ShotSu(5), ShotSu(6), ShotSu(7), ShotSu(8)
+    l = l + 1
+    dt = "  " & Format(ShotSu(0), "0")
+    For i = 1 To 8
+        dt = dt + ",  " & Format(ShotSu(i), "0")
+    Next i
+    gCoxDlDt(l) = dt
+ '
   Close fnum
   gCoxFlDtMax = l
   gGphDtMax = iaf       'データ数 元はiaf
@@ -423,10 +437,10 @@ Dim j%, fnum%, sdt$
 Dim fDir$, flNm$
   fnum = FreeFile
   fDir = App.path & "\..\data\"
-  FlNmRecDt = "LS" & Mid(Date, 6, 2) & Mid(Date, 9, 2) & Format(Int(icnt), "0") & ".lsl"
-  sdt = " No.     Z3         ct1    ct2"
-  sdt = sdt & "      cc1     cc2    cc3"
-  sdt = sdt & "    cc3-2     cp         ﾀｸﾄ     T係数    Z3補正"
+  FlNmRecDt = "LS" & Format$(Now, "yymmddhhmmss") & ".lsl"
+  sdt = " No, 型No,ｼｮｯﾄ数, Z3, ct1, ct2"
+  sdt = sdt & ",    cc1,  cc2,  cc3"
+  sdt = sdt & ",  cc3-2,   cp,    ﾀｸﾄ,  T係数,  Z3補正"
   Open fDir & FlNmRecDt For Output As #fnum
      Write #fnum, gcoxFlName & "   " & Date$ & "   " & Time$
      Write #fnum, sdt
@@ -472,13 +486,13 @@ Dim j%, fnum%
 Dim fDir$, flNm$
   fnum = FreeFile
   fDir = App.path & "\..\data\"
-  flNm = Mid(Date, 4, 2) & Mid(Date, 7, 2) & Trim(Str(i_s)) & "d.mpr"
+  flNm = Format$(Now, "yymmddhhmmss") & "-" & kataNo(ikn) & ".mpr"
   Open fDir & flNm For Output As #fnum
-  Write #fnum, Date
+  Write #fnum, Date, gcoxFlName, kataNo(ikn)
   Write #fnum, Time
   Write #fnum, i
   For j = 0 To i
-    Write #fnum, atemp(j, 0), atemp(j, 1), apre(j), aposi(j)
+    Write #fnum, Format(Int(KeikaTime(j) / 60), "  0分") & Format(Int(KeikaTime(j)) Mod 60, " 0秒"), atemp(j, 0), apre(j), aposi(j)
   Next j
   Close #fnum
 End Sub
@@ -624,6 +638,14 @@ Dim ksub As Long
     Next i
     gCoxDlDt(l) = dt
 '
+'  型 Shot数データ　の書き込み
+    l = l + 1     ' 改行
+    dt = "  " & Format(ShotSu(0), "0")
+    For i = 1 To 8
+        dt = dt + ",  " & Format(ShotSu(i), "0")
+    Next i
+    gCoxDlDt(l) = dt
+'
 Close fnum
 End Sub
 Public Sub coxDtSave(fl$)
@@ -640,7 +662,7 @@ Private Sub DebugData()
 Dim i%
 Dim z!, p!, t!, x!
 '
-  For i = 0 To 2000
+  For i = 0 To ResDtSize
     TPass(i) = i                '経過時間(秒)
     ZAxis(i) = 50 + 40 * Sin(i / 57.325)              '座標（Z-軸）
     Press(i) = i / 2000              '型締圧

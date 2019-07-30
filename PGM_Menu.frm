@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-12R_120522a"
+      Caption         =   "LS-12R_190428b"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -916,13 +916,16 @@ Attribute VB_Exposed = False
 '       Ver.3.33-12R-120513  2012.05.13 s.f  z3肉厚補正　入力制限変更　元:　+/-0.05　　新：　+0.05/-0.50
 '       Ver.3.33-12R-120522  2012.05.22 s.f  PC→非常停止へ   gemgmsg = gemgmsg + "cal_pid" + Format(pa, "0.0")   '2010.5.19 s.f.追加 12R-120122R版対応のため」
 '       Ver.3.33-12R-120522a 2012.07.01 s.f  cal_pid 異常判定　「＋500kgf、-100kgf」→「+500kgf、-200kgf」へ
+'       Ver.3.33-12R-190428  2019.04.28 s.f  成形ショット数積算追加、Graphデータ取得新設、
+'                                            30分枠を６０分へ拡張,KeikaTime追加
+'       Ver.3.33-12R-190428a 2019.04.28 s.f  6ST/4ST共用化  katamax=4or6 をPGM_KTD.basで必ず指定すること！
+'   　　Ver.3.33-12R-190428b 2019.05.01 s.f  MyEditのGraph　Picture1内のLine1の配列数を　21から30へ変更　Line1(0 to 30）
+'                                             LS33-110804　共通化のため
 '
 ' ******************************************************************************
 Option Explicit
 '
-'Dim pv_ch!        '/* マニュアル時の速度／位置切り換え値*/
 Dim di_d2%         '/* DIO_P　2ﾎﾟｰﾄ　ﾊﾞｯﾌｧ */
-'
 Dim OrgFlg%         '原点出し
 Dim MemoFlg%        'メモ帳
 Dim NextView%
@@ -930,7 +933,6 @@ Dim TrnsMax%        '搬送回数
 Dim TrnsCnt%        '搬送カウンタ
 Dim lTrnsFLg%       '搬送中フラグ
 Dim lK1%            '回数カウンタ
-
 
 Private Sub Command1_Click(Index As Integer)
 Select Case Index

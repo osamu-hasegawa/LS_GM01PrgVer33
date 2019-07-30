@@ -217,11 +217,11 @@ Begin VB.Form LS21_SC
       Width           =   500
    End
    Begin VB.CommandButton Command2 
-      Caption         =   "S"
+      Caption         =   "GraphDataSave"
       Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
-         Size            =   10.8
+         Size            =   7.8
          Charset         =   128
          Weight          =   700
          Underline       =   0   'False
@@ -230,11 +230,11 @@ Begin VB.Form LS21_SC
       EndProperty
       Height          =   300
       Index           =   5
-      Left            =   1320
+      Left            =   120
       TabIndex        =   57
-      Top             =   2400
+      Top             =   480
       Visible         =   0   'False
-      Width           =   345
+      Width           =   1440
    End
    Begin VB.ListBox List1 
       BackColor       =   &H00C0C0C0&
@@ -305,7 +305,7 @@ Begin VB.Form LS21_SC
       Left            =   120
       Style           =   1  'ｸﾞﾗﾌｨｯｸｽ
       TabIndex        =   54
-      Top             =   800
+      Top             =   840
       Width           =   1440
    End
    Begin VB.Timer Timer1 
@@ -335,6 +335,16 @@ Begin VB.Form LS21_SC
          TabIndex        =   93
          Top             =   300
          Width           =   8292
+      End
+      Begin VB.Label Label14 
+         BackStyle       =   0  '透明
+         Caption         =   "Label14"
+         ForeColor       =   &H00FFFFFF&
+         Height          =   225
+         Left            =   0
+         TabIndex        =   124
+         Top             =   1060
+         Width           =   8000
       End
       Begin VB.Label Label10 
          Appearance      =   0  'ﾌﾗｯﾄ
@@ -2593,6 +2603,7 @@ Dim lViewFlg      '前の画面番号
 Dim NextView%
 Dim NextViewBUp%  'NextViewの内容backup
 Dim lDtSaveFlg%   'データ保存
+Dim iDtSaveCount%  'データ保存回数　　max=14　20190428追加
 Dim idcflg%(0 To 3)        ' DCフラグ　形無=1　型有=0
 Dim SokuCor!(0 To 1)  '強制ソークタイムのコマンド釦の色
 Dim TKatBackCol!(0 To 1)  '加圧時間補正　上限加減　表示のbackColor
@@ -2660,9 +2671,22 @@ Case 3                        'edit　の　'02/8暫定変更(s.f)
   End If
 '
 Case 4      '真空到達
-  gVumFlg = 1                       '真空到達=1
-Case 5      '"S" ;データセーブ
-  lDtSaveFlg = True
+  gVumFlg = 1
+'真空到達=1
+'
+Case 5      '"Save" ;データセーブ
+'
+    If lDtSaveFlg = True Then
+          lDtSaveFlg = False          'データセーブ　受付解除
+          Command2(5).BackColor = CmndColoff(1)    ' off gray
+          Command2(5).Caption = "GraphDataSave"
+    Else
+          lDtSaveFlg = True           'データセーブ　受付
+          Command2(5).BackColor = CmndColon(1)   ' on 1= red
+          Command2(5).Caption = "DataSave中"
+          iDtSaveCount = 14
+  End If
+'
 Case 8      '強制ソークタイム
   If lSokuFlg = True Then
           lSokuFlg = False          '強制ソークタイム　受付解除
@@ -2714,7 +2738,6 @@ Private Sub SetData()
   DispGphScale
 End Sub
 
-
 Private Sub Form_Load()
   DispCenter Me
   LS21_SC.Caption = LS21_SC.Caption + "     " + versionNo
@@ -2722,6 +2745,8 @@ Private Sub Form_Load()
   SokuCor(0) = &H8000000F     '強制ソークタイムのコマンド釦の色
   SokuCor(1) = &HFF&          '強制ソークタイムのコマンド釦の色 押されたとき
   lDtSaveFlg = False      'データ保存
+  iDtSaveCount = 0        'データ保存回数　初期値=0
+'
   If lSokuFlg = False Then
           Command2(8).BackColor = SokuCor(0)
     Else
@@ -2818,6 +2843,7 @@ Dim ct_t!(0 To 10)
 Dim avekatJ!(0 To 10), katJ!
 Dim zclear!
 Dim tudiffTime!     '  '100310 追加
+Dim dumlbl14$      ' 成形ショット数の画面表示用　ダミー190428 追加
 '
  On Error GoTo errHandler:
 ' ---  init  val-----------------
@@ -3780,7 +3806,7 @@ caselend:     iflg = 1            'これを抜けると終了
                   DoEvents           '  注意　このDoEventsを　Do　直後に移すと　誤動作する。　搬送終了2回待ちになる！！
                 Loop
 '
-'               --- 型　No.の表示　一回送り　---
+'            --- 型　No.の表示　一回送り　---
                 kataNoPnt = kataNoPnt + 1
                 If kataNoPnt > katamax Then kataNoPnt = 0
 '
@@ -3791,6 +3817,13 @@ caselend:     iflg = 1            'これを抜けると終了
                 If (i_s_do) < katamax - 1 Then
                     For iii = kataNoPnt + 1 To katamax
                         Label13(iii).Caption = "空"
+                    Next iii
+                End If
+'            --- 4st のときは、３，４　素通し　---
+                If katamax = 4 Then
+                    For iii = 3 To 4
+                       Label13(iii + 1).Caption = Label13(iii).Caption
+                       Label13(iii).Caption = " "
                     Next iii
                 End If
 '
@@ -3841,6 +3874,9 @@ cjump:
               DaVoltOut 1, 0        ' 0V D/A ch=1
             End If
           End If
+          
+'/*　経過時間　*/
+          KeikaTime(i) = i
 '/*　温度取り込み */
 '          DoEvents               '2005.12.17 OverFlow 対策 s.f.
           atemp(i, 0) = TempRdMoldTop()   '上モールド温度 0V-300℃ 1V-1300℃
@@ -3982,21 +4018,40 @@ send:
 '
       Label4(T_keisuCont(1) - 1).Caption = Format(T_keisu(T_keisuCont(1) - 1), "0.000")
 '
-'　 --- /*　成形データの表示（リスト表示）　*/  2002.12.3 sf  ---
+'　 --- /*　現在成形中金型の 型No 確認　20190428 sf  ---
+'　　　　　　　　　'　2は成形室　　label13(2)
+        ikn = katamax - 2 + kataNoPnt + katamax + 1 + Val(kataNo(10))
+'
+        For iii = 1 To 4
+            If ikn > katamax Then ikn = ikn - (katamax + 1)
+        Next iii
+         
+ '--- /* 　カウントアップ　---/*
+        If (kataNo(ikn) <> "") Then ShotSu(ikn) = ShotSu(ikn) + 1
+'
+ '--- /* 　shot数の画面グラフ内表示　---/*
+        dumlbl14 = kataNo(0) & "=" & Format(ShotSu(0), "0") & "  " & kataNo(1) & "=" & Format(ShotSu(1), "0") & "  "
+        dumlbl14 = dumlbl14 & kataNo(2) & "=" & Format(ShotSu(2), "0") & "  " & kataNo(3) & "=" & Format(ShotSu(3), "0") & "  "
+        dumlbl14 = dumlbl14 & kataNo(4) & "=" & Format(ShotSu(4), "0") & "  " & kataNo(5) & "=" & Format(ShotSu(5), "0") & "  "
+        dumlbl14 = dumlbl14 & kataNo(6) & "=" & Format(ShotSu(6), "0")
+        Label14.Caption = dumlbl14
+'
+'　 --- /*　成形データの表示（リスト表示）　*/  csv 2019.4.28 sf  ---
 '        InitDat(11)=成形回数（ショット数）
 '
-      Rec_of_Mold = Format(InitDat(11), "000") & "   "
-      Rec_of_Mold = Rec_of_Mold & "  " & Format(z(iz3), "000.00") & "    "
-      Rec_of_Mold = Rec_of_Mold & "  " & Format(Int(ct_temp(0)), "000") & "℃ " & Format(Int(ct_temp(1)), "000") & "℃  "
-      Rec_of_Mold = Rec_of_Mold & "    " & Format(Int(cc_time(1) / 60), "0") & ":" & Format(Int(cc_time(1)) Mod 60, "00") & " "
-      Rec_of_Mold = Rec_of_Mold & "  " & Format(Int(cc_time(2) / 60), "0") & ":" & Format(Int(cc_time(2)) Mod 60, "00") & " "
-      Rec_of_Mold = Rec_of_Mold & "  " & Format(Int(cc_time(3) / 60), "0") & ":" & Format(Int(cc_time(3)) Mod 60, "00") & " "
+      Rec_of_Mold = Format(InitDat(11), "000")
+      Rec_of_Mold = Rec_of_Mold & ", " & kataNo(ikn) & ", " & Format(ShotSu(ikn), "0")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(z(iz3), "000.00")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(ct_temp(0)), "000") & "℃, " & Format(Int(ct_temp(1)), "000") & "℃"
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(cc_time(1) / 60), "0") & ":" & Format(Int(cc_time(1)) Mod 60, "00")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(cc_time(2) / 60), "0") & ":" & Format(Int(cc_time(2)) Mod 60, "00")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(cc_time(3) / 60), "0") & ":" & Format(Int(cc_time(3)) Mod 60, "00")
       diTime1 = diffTime(cc_time(3), cc_time(2))
-      Rec_of_Mold = Rec_of_Mold & "  " & Format(Int(diTime1 + 0.5), "000") & "s "
-      Rec_of_Mold = Rec_of_Mold & "    " & Format(cp_z, "000.000") & " "
-      Rec_of_Mold = Rec_of_Mold & "    " & Format(Int(stime / 60), "0") & ":" & Format(Int(stime) Mod 60, "00") & " "
-      Rec_of_Mold = Rec_of_Mold & "    " & Format(T_keisu(T_keisuCont(1) - 1), "0.000") & "    " & Format(Z3_Hosei(T_keisuCont(1) - 1), "0.000")
-      Rec_of_Mold = Rec_of_Mold & "    " & Format(avekatJ(T_keisuCont(1) - 1), "000") & "  " & Format(iHoonStopNo, "0000")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(diTime1 + 0.5), "000") & "s"
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(cp_z, "000.000")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(Int(stime / 60), "0") & ":" & Format(Int(stime) Mod 60, "00")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(T_keisu(T_keisuCont(1) - 1), "0.000") & ", " & Format(Z3_Hosei(T_keisuCont(1) - 1), "0.000")
+      Rec_of_Mold = Rec_of_Mold & ", " & Format(avekatJ(T_keisuCont(1) - 1), "000") & ", " & Format(iHoonStopNo, "0000")
       List1.AddItem Rec_of_Mold, 0                                                                                            ' ”、0”　追加　2004.8.18
         
       RecDtSave Rec_of_Mold
@@ -4023,11 +4078,15 @@ send:
       Saikaiflg = False
 '/* データの保存　*/
       If lDtSaveFlg = True Then
-        ResDtSave i_s, stime
-        lDtSaveFlg = False
+        iDtSaveCount = iDtSaveCount - 1
+        If kataNo(ikn) <> "" Then ResDtSave i_s, stime
+        If iDtSaveCount <= 0 Then
+          lDtSaveFlg = False          'データセーブ　受付解除
+          Command2(5).BackColor = CmndColoff(1)    ' off gray
+          Command2(5).Caption = "GraphDataSave"
+        End If
       End If
 '
-''
 ' ScreenCopy iflgSCopy=True の場合、ScreenCopy
     If iSeikeiTorF_flg = True Then
         If iflgSCopy = True Then
