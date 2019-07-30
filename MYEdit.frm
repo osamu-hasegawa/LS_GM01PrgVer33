@@ -4117,12 +4117,12 @@ Dim aHenkou$(3)
 Private Sub Command1_Click()
   If katCflag = True Then
           katCflag = False          'â¡à≥éûä‘é©ìÆêßå‰Å@OFF
-          Command1().BackColor = CmndColoff(3)
-          Command1().Caption = "â¡à≥éûä‘êßå‰ OFF"
+          command1().BackColor = CmndColoff(3)
+          command1().Caption = "â¡à≥éûä‘êßå‰ OFF"
     Else
           katCflag = True      'â¡à≥éûä‘é©ìÆêßå‰Å@ON
-          Command1().BackColor = CmndColon(1)    ' on1=red
-          Command1().Caption = "â¡à≥éûä‘êßå‰ ON"
+          command1().BackColor = CmndColon(1)    ' on1=red
+          command1().Caption = "â¡à≥éûä‘êßå‰ ON"
   End If
 '
 End Sub
@@ -4498,11 +4498,11 @@ DispCenter Me
     End If
   Next i
   If katCflag = False Then
-          Command1().BackColor = CmndColoff(3)
-          Command1().Caption = "â¡à≥éûä‘êßå‰ OFF"
+          command1().BackColor = CmndColoff(3)
+          command1().Caption = "â¡à≥éûä‘êßå‰ OFF"
     Else
-          Command1().BackColor = CmndColon(1)    ' on1=red
-          Command1().Caption = "â¡à≥éûä‘êßå‰ ON"
+          command1().BackColor = CmndColon(1)    ' on1=red
+          command1().Caption = "â¡à≥éûä‘êßå‰ ON"
     End If
 End Sub
 
@@ -4733,7 +4733,8 @@ Dim j%
 ' ---------------- ë“Çøéûä‘
   For j = 0 To 4
     lK8 = 1
-    VScroll8(j).min = 1000 * lK8
+    VScroll8(j).min = 2400 * lK8    ' 2019.5.25
+'    VScroll8(j).min = 1000 * lK8
     VScroll8(j).max = 0 * lK8
     VScroll8(j).LargeChange = 10 * lK8
     VScroll8(j).SmallChange = 1 * lK8

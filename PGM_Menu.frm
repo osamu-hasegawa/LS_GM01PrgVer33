@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501d"
+      Caption         =   "LS-33_Ver190501e"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -929,6 +929,8 @@ Attribute VB_Exposed = False
 '                                      coxデータのＨＤへの書き出し（毎回）
 '   　　Ver.33-190501d 2019.05.20 s.f  bug取り　表示位置バグ修正 型順書き換え場所を”XR"へ戻す。成形室に型があるときのみショット数カウントアップ（idcflg1=0）
 '                                       katahyjの書き換えcoxファイルread後へ場所変更
+'   　　Ver.33-190501e 2019.05.25 s.f  成形データ表示の文字間へスペース２個へ ", " → ",  "
+'                                      待ち時間入力制限　1000”→2400”　へ
 '
 ' ******************************************************************************
 Option Explicit
