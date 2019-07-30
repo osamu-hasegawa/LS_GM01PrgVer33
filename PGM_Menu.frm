@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501f"
+      Caption         =   "LS-33_Ver190501f-7"
       BeginProperty Font 
          Name            =   "‚l‚r ‚oƒSƒVƒbƒN"
          Size            =   12
@@ -1054,10 +1054,10 @@ Private Sub Form_Load()
   T_keisuCont(2) = 0                ' TŒW”@Îß²ÝÀ°‚Ìbackup¸ØÔ
   T_keisuCont(3) = 0                ' Œ^ŒÂ”‚Ìbackup‚Ì¸ØÔ
    Timer1.Enabled = True
-  command1(0).Enabled = False       '2002.10.17 KYOCERA
-  command1(1).Enabled = False
-  command1(2).Enabled = False
-  command1(4).Enabled = False
+  Command1(0).Enabled = False       '2002.10.17 KYOCERA
+  Command1(1).Enabled = False
+  Command1(2).Enabled = False
+  Command1(4).Enabled = False
 End Sub
 '-------------------------------------------------------------
 'Private Sub ExecMemo(DDir$, flNm$)      ' 2006.5.19 PGM_KTD ‚ÖˆÚ“®
@@ -1418,17 +1418,17 @@ Private Sub Timer2_Timer()
     If r_z > 0.1 Then
       OrgOFF
       Label2(5).Caption = ""
-      command1(0).Enabled = False
-      command1(1).Enabled = False
-      command1(2).Enabled = False
-      command1(4).Enabled = False
+      Command1(0).Enabled = False
+      Command1(1).Enabled = False
+      Command1(2).Enabled = False
+      Command1(4).Enabled = False
     Else
       OrgON
       Label2(5).Caption = "Œ´“_"
-      command1(0).Enabled = True
-      command1(1).Enabled = True
-      command1(2).Enabled = True
-      command1(4).Enabled = True
+      Command1(0).Enabled = True
+      Command1(1).Enabled = True
+      Command1(2).Enabled = True
+      Command1(4).Enabled = True
     End If
   End If
       
