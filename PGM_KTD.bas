@@ -646,7 +646,7 @@ Dim ksub As Long
     Next i
     gCoxDlDt(l) = dt
 '
-Close fnum
+'  Close fnum
 End Sub
 Public Sub coxDtSave(fl$)
 Dim l%, fnum%
@@ -660,7 +660,7 @@ End Sub
 
 Private Sub DebugData()
 Dim i%
-Dim z!, p!, t!, X!
+Dim z!, p!, t!, x!
 '
   For i = 0 To ResDtSize
     TPass(i) = i                'Œo‰ßŽžŠÔ(•b)

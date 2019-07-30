@@ -335,7 +335,7 @@ Begin VB.Form PGM_Menu
    End
    Begin VB.Label Label1 
       BackColor       =   &H00E0E0E0&
-      Caption         =   "LS-33_Ver190501b"
+      Caption         =   "LS-33_Ver190501c"
       BeginProperty Font 
          Name            =   "ＭＳ Ｐゴシック"
          Size            =   12
@@ -923,7 +923,10 @@ Attribute VB_Exposed = False
 '                                             LS33-110804　共通化のため
 '   　　Ver.33-190501 2019.05.01 s.f  12R190428b と　33R-110804　の共通化　ST数　7,6,4　st
 '   　　Ver.33-190501a 2019.05.05 s.f  bug取り　datasaveボタン見えない→見える（visible=True）
-'   　　Ver.33-190501b 2019.05.05 s.f  bug取り　表示位置バグ修正
+'   　　Ver.33-190501b 2019.05.07 s.f  bug取り　表示位置バグ修正
+'   　　Ver.33-190501c 2019.05.11 s.f  bug取り　表示位置バグ修正, katamax数により、型順表示枠を消す。MyEditの表示も消す
+'                                      iknの成形室位置判断　if文追加, 型順表示位置（プログラム内の位置）高速ループ内から　1回の成形の開始時へ移動
+'                                      coxデータのＨＤへの書き出し（毎回）
 '
 ' ******************************************************************************
 Option Explicit

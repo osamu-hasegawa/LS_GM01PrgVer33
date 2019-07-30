@@ -2875,6 +2875,10 @@ Dim dumlbl14$      ' 成形ショット数の画面表示用　ダミー190428 追加
   Label12(1).Visible = False
   Label12(2).Visible = False
 '
+    If (katamax = 6 Or katamax = 4) Then Label13(1).Visible = False
+    If katamax = 4 Then Label13(4).Visible = False
+    If katamax = 4 Then Label13(5).Visible = False
+'
 '----------------------- 連続成形メインプログラム
   C870Stop
   ServoON       '/* サーボｏｎ */
@@ -3167,7 +3171,39 @@ ejs1:
          Label7(0).BackColor = TKatBackCol(0)
          Label7(1).BackColor = TKatBackCol(0)
     End If
-''
+'
+'            --- 型　No.の表示　一回送り　---
+                kataNoPnt = kataNoPnt + 1
+                If kataNoPnt > katamax Then kataNoPnt = 0
+'
+                For iii = katamax To 0 Step -1
+                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
+                Next iii
+'
+                If (i_s_do) < katamax - 1 Then
+                    For iii = kataNoPnt + 1 To katamax
+                        Label13(iii).Caption = "空"
+                    Next iii
+                End If
+'   ---- katamaxにより、表示位置の入れ替え
+                If (katamax = 6) Or (katamax = 4) Then
+               '    --- 6st,4st のときは、0 以外　１個順送り　---
+                     For iii = katamax To 1 Step -1
+                        Label13(iii + 1).Caption = Label13(iii).Caption
+                     Next iii
+                     Label13(1).Caption = " "
+               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
+                    If katamax = 4 Then
+                        For iii = 5 To 4 Step -1
+                            Label13(iii + 2).Caption = Label13(iii).Caption
+                            Label13(iii).Caption = " "
+                        Next iii
+                    End If
+                End If
+'
+' ---           型Ｎｏ．　１回送り完了
+'
+'
 '/* カウンタへの出力ダウン */
 '/* データの取り込み */'
     evtime = Timer
@@ -3813,36 +3849,6 @@ caselend:     iflg = 1            'これを抜けると終了
                   DoEvents           '  注意　このDoEventsを　Do　直後に移すと　誤動作する。　搬送終了2回待ちになる！！
                 Loop
 '
-'            --- 型　No.の表示　一回送り　---
-                kataNoPnt = kataNoPnt + 1
-                If kataNoPnt > katamax Then kataNoPnt = 0
-'
-                For iii = katamax To 0 Step -1
-                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
-                Next iii
-'
-                If (i_s_do) < katamax - 1 Then
-                    For iii = kataNoPnt + 1 To katamax
-                        Label13(iii).Caption = "空"
-                    Next iii
-                End If
-'   ---- katamaxにより、表示位置の入れ替え
-                If (katamax = 6) Or (katamax = 4) Then
-               '    --- 6st,4st のときは、0 以外　１個順送り　---
-                     For iii = katamax To 1 Step -1
-                        Label13(iii + 1).Caption = Label13(iii).Caption
-                     Next iii
-                     Label13(1).Caption = " "
-               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
-                    If katamax = 4 Then
-                        For iii = 5 To 4 Step -1
-                            Label13(iii + 2).Caption = Label13(iii).Caption
-                            Label13(iii).Caption = " "
-                        Next iii
-                    End If
-                End If
-'
-' ---           型Ｎｏ．　１回送り完了
               Case "W"    '成形終了
               End Select
           Case "E"    '/* 終了　ロボット搬送 */
@@ -4033,9 +4039,41 @@ send:
 '
       Label4(T_keisuCont(1) - 1).Caption = Format(T_keisu(T_keisuCont(1) - 1), "0.000")
 '
+'            --- 型　No.の表示　一回送り　---
+                kataNoPnt = kataNoPnt + 1
+                If kataNoPnt > katamax Then kataNoPnt = 0
+'
+                For iii = katamax To 0 Step -1
+                    Label13(iii).Caption = kataNoHyj(katamax - iii + kataNoPnt + katamax + 1 + Val(kataNo(10)))
+                Next iii
+'
+                If (i_s_do) < katamax - 1 Then
+                    For iii = kataNoPnt + 1 To katamax
+                        Label13(iii).Caption = "空"
+                    Next iii
+                End If
+'   ---- katamaxにより、表示位置の入れ替え
+                If (katamax = 6) Or (katamax = 4) Then
+               '    --- 6st,4st のときは、0 以外　１個順送り　---
+                     For iii = katamax To 1 Step -1
+                        Label13(iii + 1).Caption = Label13(iii).Caption
+                     Next iii
+                     Label13(1).Caption = " "
+               '    --- 4st のときは、4(旧3)，5(旧4)　を　6,7へ転送　---
+                    If katamax = 4 Then
+                        For iii = 5 To 4 Step -1
+                            Label13(iii + 2).Caption = Label13(iii).Caption
+                            Label13(iii).Caption = " "
+                        Next iii
+                    End If
+                End If
+'
+' ---           型Ｎｏ．　１回送り完了
+
 '　 --- /*　現在成形中金型の 型No 確認　20190501 sf  ---
-'　　　　　　　　　'　3は成形室　　label13(3)
-        ikn = katamax - 3 + kataNoPnt + katamax + 1 + Val(kataNo(10))
+'　　　　　　　　　'　st7:3は成形室label13(3) st6:2は成形室label13(2)
+        If katamax = 7 Then ikn = katamax - 3 + kataNoPnt + katamax + 1 + Val(kataNo(10))
+        If (katamax = 6 Or katamax = 4) Then ikn = katamax - 2 + kataNoPnt + katamax + 1 + Val(kataNo(10))
 '
         For iii = 1 To 4
             If ikn > katamax Then ikn = ikn - (katamax + 1)
@@ -4110,7 +4148,11 @@ send:
         iflgSCopy = False          'ScreenCopy　受付解除
         Command2(2).BackColor = CmndColoff(1)
     End If
-
+'/* coxデータのＨＤへの書き出し（毎回） */　　2019.5.11追加　ShouSuカウント対策
+'    成形サイクルのENDで毎回save
+      coxDtSet
+      coxDtSave gcoxFldir & gcoxFlName
+'
 ' ---  成形回数　指定の確認
 '
       If (seikeiKaisu <> 0) Then
